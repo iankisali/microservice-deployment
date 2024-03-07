@@ -7,6 +7,6 @@ spec:
   selector:
     app: {{ .Values.appName }}
   ports:
-  - name: redis
-    port: 6379
-    targetPort: 6379
+  - protocol: TCP
+    port: {{ .Values.servicePort }}
+    targetPort: {{ .Values.containerPort }}

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.appName }}
 spec:
-
+  replicas: {{ .Values.appReplicas }}
   selector:
     matchLabels:
       app: {{ .Values.appName }}
@@ -14,27 +14,12 @@ spec:
     spec:
       containers:
       - name: {{ .Values.appName }}
-        image: redis:alpine
+        image: {{ .Values.appImage }}:{{ .Values.appVersion }}
         ports:
-        - containerPort: 6379
-        readinessProbe:
-          periodSeconds: 5
-          tcpSocket:
-            port: 6379
-        livenessProbe:
-          periodSeconds: 5
-          tcpSocket:
-            port: 6379
+        - containerPort: {{ .Values.containerPort }}
         volumeMounts:
-        - mountPath: /data
-          name: redis-data
-        resources:
-          requests:
-            cpu: 70m
-            memory: 200Mi
-          limits:
-            cpu: 125m
-            memory: 256Mi
+        - name: {{ .Values.volumeName }}
+          mountPath: {{.Values.continerMountPath }}
       volumes:
-      - name: redis-data
+      - name: {{ .Values.volumeName }}
         emptyDir: {}
