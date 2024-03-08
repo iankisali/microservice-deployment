@@ -19,7 +19,7 @@ spec:
         - containerPort: {{ .Values.containerPort }}
         volumeMounts:
         - name: {{ .Values.volumeName }}
-          mountPath: {{.Values.continerMountPath }}
+          mountPath: {{.Values.containerMountPath }}
       volumes:
       - name: {{ .Values.volumeName }}
         emptyDir: {}
