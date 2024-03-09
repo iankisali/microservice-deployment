@@ -9,6 +9,6 @@ containerEnvVars:
 - name: DISABLE_TRACING
   value: "1"
 - name: DISABLE_PROFILER
-  value: "1"  
+  value: "1"
 
 servicePort: 5000
