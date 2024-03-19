@@ -1,7 +1,9 @@
 # Microservice Demo Application -  Kubernetes
 
 ## Prerequisites
+- awscli
 - helm
+- eksctl
 - kubectl
 - helmfile
 
@@ -124,17 +126,24 @@ There are 3 types of executing liveness probe:
 
 2. No root access for containers. Configure containers to use unprivileged users.
 
-3. Update Kubernetesto the latest version.
+3. Update Kubernetes to the latest version.
 
 
+eksctl create cluster -f cluster.yaml
 
-helm template -f values/email-service-values.yaml chart/microservice/
+### Validating the Helm Charts
+- ```helm template -f values/email-service-values.yaml chart/microservice/```
 
-helm lint -f values/email-service-values.yaml chart/microservice/
+- ```helm lint -f values/email-service-values.yaml chart/microservice/```
 
-helm install -f values/email-service-values.yaml emailservice chart/microservice/
+### Deploying a single service
+- ```helm install -f values/email-service-values.yaml emailservice chart/microservice/```
+
 (install chart)  (overrides values)              (release name) (chart name)
 
+ A better method of deploying helm charts is using helmfile
+
+ 
 helm ls
 kubectl get pod
 
