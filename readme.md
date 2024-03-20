@@ -1,11 +1,11 @@
 # Microservice Demo Application -  Kubernetes
 
 ## Prerequisites
-- awscli
-- helm
-- eksctl
-- kubectl
-- helmfile
+- `awscli` - AWS Command Line Interface providing access to multiple AWS services from the command line.
+- `eksctl` - Command Line Interface tool for working with EKS including creating and managing clusters in the cloud.
+- `kubectl` - Command Line tool for running commands in the Kubernetes cluster. Communicates with K8s control plane using it's API.
+- `helm` - Package manager for Kubernetes used to automate creation, packaging, and deployment of K8S applications.
+- `helmfile` - command line tool and declarative specification for managing and installing collection of Helm charts.
 
 Project to deploy a microservices application from [Google-Microservices Demo](https://github.com/GoogleCloudPlatform/microservices-demo) using Kubernetes.
 
@@ -16,10 +16,6 @@ Created YAML files with the 11 deployments and corresponding manifests. All serv
 The flowchart if the microservice deployment is as shown:
 
 ![Deployments](img/flow.png)
-
-To show and achieve the interconnection of different microservices, environment variables were used:
-
-![Environment Variables](img/envVars.png)
 
 The different ports in which different microservices were running is as shown below:
 
@@ -143,19 +139,36 @@ eksctl create cluster -f cluster.yaml
 
  A better method of deploying helm charts is using helmfile
 
- 
-helm ls
-kubectl get pod
+## Process of Deploying Microservice
+### Creating a simple cluster
+- ```eksctl create cluster```
 
-helmfile vs shell script
+This creates an EKS cluster in default region set up in ~/.aws/config file with one managed nodegroup having two m5.large
 
-helmfile sync/apply
-helmfile list
+### Confirm creation of nodes
+- ```kubectl get nodes ```
 
-host helm chart in git repo with app code
-preferred - separate repo for helm chart
+### Listing helm files in the repo
+- ```helmfile list```
 
-How it fits in CI/CD 
-create helm charts for devs
+### Applying helmfile
+- ```helmfile apply/sync```
 
+    An option to deploying the helm charts is applying the command to deploy individual chart. An example of this is:
+    ```helm install -f values/email-service-values.yaml emailservice chart/microservice -n microservice```.
 
+### Getting pod running from the cluster
+- ```kubectl get pods```
+
+### Getting services from cluster
+- ```kubectl get services```
+
+    The internet facing service is the frontend point which in this case points to the load balancer. Such endpoint is `a2b6b1650b6f244109555d04f4951be1-924838504.us-east-1.elb.amazonaws.com`. Enter this in a web browser to obtaing the landing page of the online boutique.
+
+### Application Running in Cluster
+![Online Boutique Shop](img/shop.png)
+
+### Destroying Cluster
+- ```eksctl destroy cluster --name beautiful-party-1710830057```
+
+    Remember to replace name of cluster with your cluster name.
