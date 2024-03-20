@@ -13,11 +13,7 @@ The platform is an Online Boutique consisting of an 11-tier microservice applica
 
 Created YAML files with the 11 deployments and corresponding manifests. All services components are internal services, except frontend service which is accessed via browser.
 
-The flowchart if the microservice deployment is as shown:
-
-![Deployments](img/flow.png)
-
-The different ports in which different microservices were running is as shown below:
+The flowchart and ports in which different microservices were running is as shown below:
 
 ![Port Configuration](img/port.png)
 
@@ -125,8 +121,6 @@ There are 3 types of executing liveness probe:
 3. Update Kubernetes to the latest version.
 
 
-eksctl create cluster -f cluster.yaml
-
 ### Validating the Helm Charts
 - ```helm template -f values/email-service-values.yaml chart/microservice/```
 
@@ -137,7 +131,7 @@ eksctl create cluster -f cluster.yaml
 
 (install chart)  (overrides values)              (release name) (chart name)
 
- A better method of deploying helm charts is using helmfile
+ - A better method of deploying helm charts is using helmfile
 
 ## Process of Deploying Microservice
 ### Creating a simple cluster
