@@ -146,9 +146,10 @@ This creates an EKS cluster in default region set up in ~/.aws/config file with 
 - ```helmfile list```
 
 ### Applying helmfile
-- ```helmfile apply/sync```
+- ```helmfile apply``` or ```helmfile sync```
 
     An option to deploying the helm charts is applying the command to deploy individual chart. An example of this is:
+  
     ```helm install -f values/email-service-values.yaml emailservice chart/microservice -n microservice```.
 
 ### Getting pod running from the cluster
@@ -157,7 +158,11 @@ This creates an EKS cluster in default region set up in ~/.aws/config file with 
 ### Getting services from cluster
 - ```kubectl get services```
 
-    The internet facing service is the frontend point which in this case points to the load balancer. Such endpoint is `a2b6b1650b6f244109555d04f4951be1-924838504.us-east-1.elb.amazonaws.com`. Enter this in a web browser to obtaing the landing page of the online boutique.
+    The internet facing service is the frontend point which in this case points to the load balancer. Such endpoint is:
+  
+   `a2b6b1650b6f244109555d04f4951be1-924838504.us-east-1.elb.amazonaws.com`
+
+  Enter this in a web browser to obtaing the landing page of the online boutique.
 
 ### Application Running in Cluster
 ![Online Boutique Shop](img/shop.png)
